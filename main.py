@@ -6,16 +6,13 @@ from database import DEFAULT_ERROR_INT, Anime, IMDatabase
 app = FastAPI()
 
 database = IMDatabase()
-database.anime_create(Anime(
-    id=1,
-    title="naruto",
-    year=2000,
-    episode_count=9999,
-))
+database.seed()
+
 
 @app.get("/anime")
 async def anime_get_all():
     return database.anime_get_all()
+
 
 @app.get("/anime/{id}")
 async def anime_get_one(id: int):
@@ -28,6 +25,7 @@ async def anime_get_one(id: int):
         )
 
     return anime
+
 
 @app.post("/anime", status_code=status.HTTP_201_CREATED)
 async def anime_create(anime: models.AnimeCreate):
@@ -47,9 +45,11 @@ async def anime_create(anime: models.AnimeCreate):
 
     return {"id": anime_id}
 
+
 @app.delete("/anime/{id}")
 async def anime_delete(id: int, status_code=status.HTTP_204_NO_CONTENT):
     database.anime_delete_by_id(id)
+
 
 @app.patch("/anime/{id}")
 async def anime_update(id: int, anime_in: models.AnimeUpdate):
