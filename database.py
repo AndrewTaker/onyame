@@ -4,17 +4,36 @@ from pydantic import BaseModel
 
 DEFAULT_ERROR_INT: int = -1
 
+
 class Anime(BaseModel):
     id: int | None = None
     title: str
     year: int
     episode_count: int
 
+
 class Manga(BaseModel):
     id: int | None = None
     title: str
     year: int
     chapter_count: int
+
+
+INITIAL_ANIME = [
+    Anime(id=1, title="Naruto", year=2002, episode_count=220),
+    Anime(id=2, title="Bleach", year=2004, episode_count=366),
+    Anime(id=3, title="Death Note", year=2006, episode_count=37),
+    Anime(id=4, title="Fullmetal Alchemist: Brotherhood", year=2009, episode_count=64),
+    Anime(id=5, title="Attack on Titan", year=2013, episode_count=89),
+    Anime(id=6, title="One Piece", year=1999, episode_count=1088),
+    Anime(id=7, title="Demon Slayer", year=2019, episode_count=55),
+    Anime(id=8, title="Jujutsu Kaisen", year=2020, episode_count=47),
+    Anime(id=9, title="Hunter x Hunter", year=2011, episode_count=148),
+    Anime(id=10, title="Steins;Gate", year=2011, episode_count=24),
+    Anime(id=11, title="Cowboy Bebop", year=1998, episode_count=26),
+    Anime(id=12, title="Cyberpunk: Edgerunners", year=2022, episode_count=10),
+]
+
 
 class IMDatabase:
     def __init__(self) -> None:
@@ -74,7 +93,11 @@ class IMDatabase:
 
         return anime
 
-    #extra private methods
+    def seed(self) -> None:
+        for a in INITIAL_ANIME:
+            self.anime_create(a)
+
+    # extra private methods
     def __autoincrement(self, model: Literal["anime", "manga"]) -> int:
         if model == "anime":
             ids = [id for id in self.__anime.keys()]
