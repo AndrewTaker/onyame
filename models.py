@@ -6,6 +6,7 @@ class AnimeCreate(BaseModel):
     year: int
     episode_count: int
 
+
 class AnimeUpdate(BaseModel):
     title: str | None = None
     year: int | None = None
