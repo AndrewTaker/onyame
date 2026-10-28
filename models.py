@@ -1,13 +1,7 @@
-from pydantic import BaseModel
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field
 
-class AnimeCreate(BaseModel):
-    title: str
-    year: int
-    episode_count: int
-
-
-class AnimeUpdate(BaseModel):
-    title: str | None = None
-    year: int | None = None
-    episode_count: int | None = None
+# студия которая сделала аниме
+class Studios(SQLModel, table=True):
+    id : int | None = Field(primary_key=True, default=None)
+    name : str
+    founded_year : int | None = Field(default=None)
