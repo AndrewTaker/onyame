@@ -18,3 +18,8 @@ class Manga(SQLModel, table=True):
     chapters : int | None = Field(default=None)
     status : str | None = Field(default=None)
     
+class Anime(SQLModel, table=True):
+    id : int | None = Field(primary_key=True, default=None)
+    title : str
+    studio_id : int | None = Field(default=None)
+    
